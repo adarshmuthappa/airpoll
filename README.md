@@ -28,6 +28,3 @@ Swap your Parse key for mine and signup/login users. Create new polls using the 
 * [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
 
 A big thank you to all the authors and collaborators of these projects.
-
-### License
-Use it however you want to. **Build something awesome!**
