@@ -1,64 +1,58 @@
-let React = require('react-native');
-let Parse = require('parse/react-native');
-let ParseReact = require('parse-react/react-native');
-let MaterialIcon = require('react-native-vector-icons/MaterialIcons');
-let NavigationBar = require('react-native-navbar');
-let store = require('react-native-simple-store');
-let Overlay = require('react-native-overlay');
-
-let LeftButton = require('../../NavBar/LeftButton');
-let LoadingScreen = require('../../LoadingScreen');
-
-let {
-  AsyncStorage,
-  ActivityIndicatorIOS,
+// let Parse = require('parse/react-native');
+// let ParseReact = require('parse-react/react-native');
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import NavigationBar from 'react-native-navbar';
+import store from 'react-native-simple-store';
+import Overlay from 'react-native-overlay';
+import LeftButton from '../../NavBar/LeftButton';
+import LoadingScreen from '../../LoadingScreen';
+import React, {
   AlertIOS,
+  Component,
   Dimensions,
-  Text,
+  Navigator,
   StyleSheet,
   TextInput,
-  View,
   TouchableOpacity,
-  Image,
-  StatusBarIOS,
-  Navigator
-} = React;
+  View
+} from 'react-native';
 
-let deviceScreen = Dimensions.get('window');
-let deviceHeight = deviceScreen.width;
-let deviceWidth = deviceScreen.width;
+let deviceHeight = Dimensions.get('window').width;
+let deviceWidth = Dimensions.get('window').width;
 let STORAGE_KEY = 'currentUser';
 
-let LoginPage = React.createClass({
-  mixins: [ParseReact.Mixin],
+export default class LoginPage extends Component {
+  // mixins: [ParseReact.Mixin],
 
-  observe: function() {
-    return {
-      user: ParseReact.currentUser
+  // observe: function() {
+  //   return {
+  //     user: ParseReact.currentUser
+  //   };
+  // },
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      animating: false
     };
-  },
+  }
 
   containerTouched(event) {//to hide keyboard when clicked elsewhere from textinput
     this.refs.username.blur();
     this.refs.password.blur();
     return false;
-  },
+  }
 
-  getInitialState: function() {
-    return {
-      username: '',
-      password: '',
-      animating: false
-    };
-  },
 
-  goBack: function() {
+  goBack() {
     this.refs.username.blur();
     this.refs.password.blur();
     this.props.navigator.pop();
-  },
+  }
 
-  checkLogin: function() {
+  checkLogin() {
     let success = true;
     let state = this.state;
     for(let key in state){
@@ -78,103 +72,54 @@ let LoginPage = React.createClass({
       AlertIOS.alert('Login Error','Please complete all fields',
         [{text: 'Okay'}]);
     }
-  },
+  }
 
-  goToMainView: function() {
+  goToMainView() {
     this.props.navigator.replace({
       id: 'tab-bar',
       sceneConfig: Navigator.SceneConfigs.FadeAndroid
     });
-  },
+  }
 
-  // async _onValueChange() {
-  //   try {
-  //     await AsyncStorage.setItem(STORAGE_KEY, 'user');
-  //     console.log('Saved selection to disk: ' + 'user');
-  //   } catch (error) {
-  //     console.log('AsyncStorage error: ' + error.message);
-  //   }
-  // },
+  _doLogin() {
+    // let parent = this;
+    // Parse.User.logIn(this.state.username, this.state.password).then(function() {
+    //   parent.setState({animating: false});
+    //   store.save('activeUser', parent.data.user);
+    //   //parent._onValueChange();
+    //   parent.goToMainView();
+    // }, function(error) {
+    //   // login failed.
+    //   console.log(error.code);
+    //   parent.setState({animating: false});
+    //   switch(error.code) {
+    //     case 100 :  AlertIOS.alert('Connection Error','No internet connection',
+    //                   [{text: 'Okay'}]);
+    //                 break;
+    //     case 101 :  AlertIOS.alert('Login Error','Invalid login parameters',
+    //                   [{text: 'Okay'}]);
+    //                 break;
+    //     case 107 :  AlertIOS.alert('Connection Error','No internet connection',
+    //                   [{text: 'Okay'}]);
+    //                 break;
+    //     case 124 :  AlertIOS.alert('Request Timeout Error','Check internet connection',
+    //                   [{text: 'Okay'}]);
+    //                 break;
+    //     case 125 :  AlertIOS.alert('Login Error','Invalid email address',
+    //                   [{text: 'Okay'}]);
+    //                 break;
+    //     case 209 :  AlertIOS.alert('Login Error','Invalid session. Please try again.',
+    //                   [{text: 'Okay'}]);
+    //                 break;
+    //     default :  AlertIOS.alert('Login Error','Invalid login credentials',
+    //                   [{text: 'Okay'}]);
+    //                 break;
+    //   }
+    // });
+    this.goToMainView();
+  }
 
-  _doLogin: function() {
-    let parent = this;
-    Parse.User.logIn(this.state.username, this.state.password).then(function() {
-      parent.setState({animating: false});
-      store.save('activeUser', parent.data.user);
-      //parent._onValueChange();
-      parent.goToMainView();
-    }, function(error) {
-      // login failed.
-      console.log(error.code);
-      parent.setState({animating: false});
-      switch(error.code) {
-        case 100 :  AlertIOS.alert('Connection Error','No internet connection',
-                      [{text: 'Okay'}]);
-                    break;
-        case 101 :  AlertIOS.alert('Login Error','Invalid login parameters',
-                      [{text: 'Okay'}]);
-                    break;
-        case 107 :  AlertIOS.alert('Connection Error','No internet connection',
-                      [{text: 'Okay'}]);
-                    break;
-        case 124 :  AlertIOS.alert('Request Timeout Error','Check internet connection',
-                      [{text: 'Okay'}]);
-                    break;
-        case 125 :  AlertIOS.alert('Login Error','Invalid email address',
-                      [{text: 'Okay'}]);
-                    break;
-        case 209 :  AlertIOS.alert('Login Error','Invalid session. Please try again.',
-                      [{text: 'Okay'}]);
-                    break;
-        default :  AlertIOS.alert('Login Error','Invalid login credentials',
-                      [{text: 'Okay'}]);
-                    break;
-      }
-    });
-  },
-
-  // render: function() {
-  //   return (
-  //     <View style={styles.container}>
-  //       <View style={styles.bgImageWrapper}>
-  //         <Image source={require('image!beach')} style={styles.bgImage} />
-  //       </View>
-  //       <TouchableHighlight activeOpacity={0.2} underlayColor={"transparent"} style={styles.button} onPress={this.goBack}>
-  //         <Text style={styles.loginButtonText}>Back</Text>
-  //       </TouchableHighlight>
-  //       <TextInput
-  //         placeholder="Enter username"
-  //         placeholderTextColor="white"
-  //         multiline={false}
-  //         autoCorrect={false}
-  //         autoFocus={false}
-  //         onChangeText={(username) => {
-  //           this.setState({username});
-  //         }}
-  //         style={styles.textInputDefault}
-  //         value={this.state.username}
-  //       />
-  //       <TextInput
-  //         placeholder="Enter password"
-  //         placeholderTextColor="white"
-  //         multiline={false}
-  //         autoCorrect={false}
-  //         autoFocus={false}
-  //         secureTextEntry={true}
-  //         onChangeText={(password) => {
-  //           this.setState({password});
-  //         }}
-  //         style={styles.textInputDefault}
-  //         value={this.state.password}
-  //       />
-  //       <FilledButton />
-  //       <TouchableHighlight activeOpacity={0.2} underlayColor={"transparent"} style={styles.button} onPress={this.checkLogin}>
-  //         <Text style={styles.loginButtonText}>LogIn</Text>
-  //       </TouchableHighlight>
-  //     </View>
-  //   );
-  // }
-  render: function() {
+  render() {
     return (
       <View style={styles.container} onStartShouldSetResponder={this.containerTouched}>
         <NavigationBar
@@ -187,10 +132,8 @@ let LoginPage = React.createClass({
             <LeftButton
               iconName={'arrow-back'}
               iconColor="#008299"
-              onPress={() => this.goBack()}
-            />
-          }
-        />
+              onPress={() => this.goBack()}/>
+          }/>
         <View style={styles.loginContainer}>
           <TextInput
             ref="username"
@@ -225,59 +168,16 @@ let LoginPage = React.createClass({
           <Overlay isVisible={true}>
             <LoadingScreen/>
           </Overlay>
-        : null }
+        : null}
       </View>
     );
   }
-});
+}
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white'
-  },
-  headerRow: {
-    flexDirection: 'row',
-    marginTop: 30,
-    marginLeft: 5,
-    marginRight: 5
-  },
-  icon: {
-    fontSize: 28,
-    height: 30,
-    color: '#07A186',
-    marginLeft: 12,
-    bottom: 3
-  },
-  headerText: {
-    flex:1,
-    paddingLeft: -30,
-    marginTop: 5,
-    fontSize: 18,
-    color: '#E91E63',
-    textAlign: 'center'
-  },
-  bgImageWrapper: {
-    position: 'absolute',
-    top: 0, bottom: 0, left: 0, right: 0
-  },
-  bgImage: {
-    flex: 1,
-    resizeMode: 'cover'
-  },
-  loadingContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  spinner: {
-    // position: 'absolute',
-    // left: deviceWidth/2 - 25,
-    // top: deviceHeight/2 - 25,
-    // height: 50,
-    // width: 50,
-    // backgroundColor: '#E91E63',
-    // borderRadius: 5
   },
   loginContainer: {
     justifyContent: 'center',
@@ -313,5 +213,3 @@ let styles = StyleSheet.create({
     color: '#008299'
   }
 });
-
-module.exports = LoginPage;

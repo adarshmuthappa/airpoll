@@ -1,28 +1,25 @@
-let React = require('react-native');
-
-let {
+import React, {
+  ActivityIndicatorIOS,
+  Component,
   StyleSheet,
-  View,
-  ActivityIndicatorIOS
-} = React;
+  View
+} from 'react-native';
 
-let LoadingScreen = React.createClass({
-  render: function() {
-
+export default class LoadingScreen extends Component {
+  render() {
     return (
-      <View style={[styles.container, {backgroundColor: this.props.backgroundColorContainer}]}>
+      <View style={styles.container}>
         <ActivityIndicatorIOS
           animating={true}
           color="#008299"
           size="small"
-          style={styles.spinner}
-        />
+          style={styles.spinner}/>
       </View>
     );
   }
-});
+}
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
@@ -35,5 +32,3 @@ let styles = StyleSheet.create({
     // borderRadius: 5
   }
 });
-
-module.exports = LoadingScreen;

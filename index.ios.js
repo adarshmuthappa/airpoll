@@ -3,7 +3,7 @@
 import store from 'react-native-simple-store';
 import FirstPage from './src/components/FirstPage/FirstPage';
 import AppLandingPage from './src/components/LoginPages/LandingPage/LandingPage';
-
+import LoginPage from './src/components/LoginPages/LoginPage/LoginPage';
 // Parse.initialize('NXxA7ayrOBxizMjqlqamfcbVYq7t3Ti0Sh9bYptz', 'peDdshh8c0RUHlYJjO8N8xWEDbRwWJeBmTYiH7tf');
 
 import React, {
@@ -50,10 +50,9 @@ class airpoll extends Component {
       case 'landing-page':
         return <AppLandingPage navigator={navigator} route={route} />;
         break;
-      // case 'login-page':
-      //   import LoginPage from './src/components/LoginPages/LoginPage/LoginPage';
-      //   return <LoginPage navigator={navigator} route={route}/>;
-      //   break;
+      case 'login-page':
+        return <LoginPage navigator={navigator} route={route}/>;
+        break;
       // case 'signup-page':
       //   import SignUpPage from './src/components/LoginPages/SignUpPage/SignUpPage';
       //   return <SignUpPage navigator={navigator} route={route}/>;

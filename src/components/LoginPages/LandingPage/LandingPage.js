@@ -25,6 +25,7 @@ export default class LandingPage extends Component {
   }
 
   goToLoginPage() {
+    console.log(this.props)
     this.props.navigator.push({
       id: 'login-page',
       sceneConfig: Navigator.SceneConfigs.FadeAndroid
@@ -48,16 +49,16 @@ export default class LandingPage extends Component {
     });
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   // console.log(nextProps);
-  //   if(nextProps.user && count>0) {
-  //     this.goToMainView();
-  //     count--;
-  //   }
-  // },
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    // if(nextProps.user && count>0) {
+    //   this.goToMainView();
+    //   count--;
+    // }
+  }
 
   render() {
-    // console.log(this.props.user);
+    console.log(this.props);
     return (
       <View style={styles.container}>
         <View style={styles.topContainer}>
@@ -75,10 +76,10 @@ export default class LandingPage extends Component {
         </View>
         <View style={styles.bottomContainer}>
           <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-            <TouchableOpacity style={styles.buttonSignUp} onPress={this.goToSignUpPage}>
+            <TouchableOpacity style={styles.buttonSignUp} onPress={this.goToSignUpPage.bind(this)}>
               <Text style={styles.signUpButtonText}>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonLogin} onPress={this.goToLoginPage}>
+            <TouchableOpacity style={styles.buttonLogin} onPress={this.goToLoginPage.bind(this)}>
               <Text style={styles.loginButtonText}>Log In</Text>
             </TouchableOpacity>
           </View>
