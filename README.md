@@ -28,3 +28,6 @@ Create new polls using the plus FAB button. You can also create groups with the 
 * [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
 
 A big thank you to all the authors and collaborators of these projects.
+
+### Screenshots
+<img src="https://raw.githubusercontent.com/adarshmuthappa/airpoll/tree/screenshot/screenshots/Screenshot 2016-04-02 13.38.40.png" alt="Landing Page" width="250px">
