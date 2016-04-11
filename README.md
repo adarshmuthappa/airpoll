@@ -1,4 +1,7 @@
 # airpoll
+
+**WIP** Please note only landing page and login page have been upgraded
+
 This is v2.0 of [airpollv1](https://github.com/adarshmuthappa/airpollv1), a mobile application developed using React Native to enable people to create polls for their friends to vote on. This app uses many of the most popular libraries available for RN. It used to use Parse as a backend. All Parse code has been commented out. But integration with Parse is functional so you can uncomment it and use.  Polls can be created and queried for in the app. However, logic to determine poll results, record votes etc is not implemented. The app uses **RN 0.22**.
 
 Create new polls using the plus FAB button. You can also create groups with the same option. The second tab has a few default circles. However, no data will display when you click. All polls you have created will show up here.
