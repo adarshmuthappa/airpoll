@@ -1,12 +1,12 @@
-let React = require('react-native');
-let MaterialIcon = require('react-native-vector-icons/MaterialIcons');
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-let {
+import React, {
+  Component,
   StyleSheet,
   TouchableOpacity
-} = React;
+} from 'react-native';
 
-let LeftButton = React.createClass({
+export default class LeftButton extends Component {
   render() {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
@@ -14,16 +14,15 @@ let LeftButton = React.createClass({
       </TouchableOpacity>
     );
   }
-});
+}
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
   icon: {
-    fontSize: 28,
-    height: 30,
+    fontSize: 25,
+    height: 25,
     color: '#9C9893',
+    marginTop: 12,
     marginLeft: 12,
     bottom: 3
   },
 });
-
-module.exports = LeftButton;
